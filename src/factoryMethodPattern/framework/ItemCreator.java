@@ -1,7 +1,7 @@
 package factoryMethodPattern.framework;
 
 public abstract class ItemCreator {
-	
+	//팩토리패턴 -> 템플릿패턴 
 	public Item create(){
 		Item item;
 		requestItemInfo();
