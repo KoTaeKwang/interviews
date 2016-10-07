@@ -1,4 +1,4 @@
-package BuilderPattern;
+package BuildPattern2;
 
 public class Computer {
 	public String cpu;
