@@ -2,7 +2,7 @@ package Mediator.main;
 
 import Mediator.contract.Colleague;
 import Mediator.contract.Mediator;
-
+//모든 클래스간의 복잡한 로직을 캡슐화하여 하나의 클래스에 위임하여 처리하는 패턴 
 public class main {
 
 	public static void main(String[] args) {

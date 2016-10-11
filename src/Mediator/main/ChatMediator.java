@@ -13,6 +13,4 @@ public class ChatMediator extends Mediator {
 			colleague.handle(data);
 		}
 	}
-	
-	
 }

@@ -1,0 +1,27 @@
+디자인의 원칙 -> 애플리케이션에서 달라지는 부분을 찾아내어 캡슐화를 시킨다.
+
+Strategy Pattern -  여러가지 알고리즘(변하는 것들)을 하나의 인터페이스를 만들어 접근점에서 서로 교환 가능하도록 하여 어떤 행동을 사용할지 결정하는 패턴(Weapon , Character)
+
+Bridge Pattern - 기능과 구현부분을 분리하여 각자 독립적으로 변형할 수 있게 하는 패턴 , 전형적인 상속을 이용한 패턴으로 확장설계에 용이하다(Morse부호 ,Sound, Default)
+
+Builder Pattern - 주로 많은 인자를 가진, 복잡한 단계가 필요한 객체를   다른 객체의 도움으로 생성하는 패턴 - 가독성을 좋게한다.  (Computer, LGGram, BluePrint)
+
+Chain of Responsibility Pattern - 요청을 처리할 수 있는 기회를 하나 이상의 객체에게 부여함, 일반적으로 처리할 수 있는 모든 객체들을 고리로 묶고 맨 처음 객체에게 요청을 전달하여 처리하지 못하면 다음 객체로 넘기는 타입, 연결리스트라 생각하면된다. (Armor, Defence, Attack)
+
+Composite Pattern - 객체들의 집합을 다룰 때 유용  (Folder ,file)
+
+Decorator Pattern - 주어진 상황 및 용도에 따라 어떤 객체에 책임을 덧붙이는 패턴, 서브클래스를 이용해 기능을 확장한다.(Milk,Espresso )
+
+Facade Pattern - 복잡한 것을 간단하게 , 하나의 시스템에서 하나의 작업을 처리하는데 여러개의 클래스의 상호 동작이 필요할때 , 이것을 묶어서 처리 (System1,System2,System3, facade)
+
+Factory Method Pattern - 템플릿 메서드 패턴과 유사, 객체를 생성하기 위해 인터페이스를 정의하지만, 어떤 클래스의 객체를 생성할 지에 대해서는 하위클래스에서 결정(Item, ItemCreator, HPPotion, MPpotion)
+
+Mediator Pattern - 모든 클래스간의 복잡한 로직을 캡슐화하여 하나의 클래스에 위임하는 패턴, M:N 관계에서 M:1 관계로 복잡도를 떨어뜨려 유지보수 및 재사용의 확장성에 유리 (Mediator, Colleague, ChatColleague , ChatMediator)
+
+Observer Pattern - 옵저버 패턴에서는 한 객체의 상태가 바뀌면 그 객체에 의존하는 다른 객체들한테 연락이 가고 자동으로 내요이 갱신되는 방식으로 일대다 의존성을 정의합니다.(Weather , display)
+
+Prototype Pattern - 생산비용이 높은(클래스로부터 인스턴스 생성이 어려운 경우) 인스턴스를 복사하는 것 (Circle, Shape)
+
+SingleTon Pattern - 하나의 프로그램 내에서 하난의 인스턴스만을 생성하는 패턴 (speaker)
+
+TemplateMethod Pattern - 상위클래스에서 처리의 흐름을 제어하며, 하위클래스에서 처리의awd내용을 구체화한다. 공통되는 사항은 상위 추상클래스에서 구현하고, 각각의 상세부분은 하위 클래스에서 구현한다. 코드의 중복을 줄이고, 리팩토링에 유리한 패턴(GameConnectHelper, AbsGameConnectHelper)
