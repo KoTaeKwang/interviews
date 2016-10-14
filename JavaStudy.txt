@@ -103,3 +103,207 @@ super() -> 부모생성자
                    Bus bus =(Bus)c;  -> 이거 가능 자식만의 함수 이런거 다 쓸 수 있어
   
  		   
+
+
+interface - > java8 부터는 default method 와 static method 구현가능  (원래는 추상메소드만 가능했어)
+
+
+public interface calculator{
+
+   default int exec(int i,int j){  -> 자식클래스에서 오버라이딩 안해도된다.     ,  메인함수내에서  calculator cal = new MyCal()(자식클래스);    cal.exec(3,4)  하면된다.
+         return i+j;
+    }
+
+   public static int exec2(int i,int j){    -> 메인함수 내에서 calculator.exec2(3,4) 하면된다.  cal.exec2(3,4); -> 하면안되
+          return i*j;
+   }
+} 
+
+
+
+
+내부클래스 -> 클래스 안에 선언된 클래스 
+
+1.인스턴스 클래스 - 클래스 안에 인스턴스 변수, 즉 필드를 선언하는 위치에 클래스를 선언한 경우
+
+public class innerexam1{
+   
+   class Cal{
+     int value = 0;
+     public void plus(){ value ++;}
+   
+      }	
+
+
+    public static void main(){
+
+	innerexam1 t = new innerexam1();
+        innerexam1.Cal cal = t.new Cal();
+        cal.plus();	
+  }
+}
+
+
+2. static 클래스 - 내부 클래스가 static으로 선언된 경우
+
+
+public class innerexam1{
+   
+  static class Cal{
+     int value = 0;
+     public void plus(){ value ++;}
+   
+      }	
+
+
+    public static void main(){
+        innerexam1.Cal cal = new innerexam1.Cal();
+        cal.plus();	
+  }
+}
+
+3. 지역클래스  - 메소드 안에 클래스를 선언한 경우
+
+
+public class innerexam1{
+   
+ public void exec(){
+     class Cal{
+        int value = 0;
+        public void plus(){ value ++;}
+        }
+
+      Cal cal = new Cal();
+      cal.plus();
+	
+  }
+
+    public static void main(){
+        innerexam1 t = new innerexam1();
+        t.exec();	
+  }
+}
+
+4. 익명클래스 - 상속받는 클래스를 만들 필요가 없기때문에, 해당클래스에서만 사용되고 다른 클래스에서 사용안하려고
+
+
+ public abstract class Action{
+        public abstract void exec();
+    }
+
+
+  public class ActionExam{
+        public static void main(String args[]){
+           
+	      Action action = new Action(){
+                public void exec(){
+                    System.out.println("exec");
+                }
+            };
+
+            action.exec();
+        }
+    }
+
+
+
+
+
+throws - Exception 처리를 무시하는것, 호출한 쪽에게 오류를처리하라
+
+
+public class ExceptionExam2 {
+
+        public static void main(String[] args) {
+            int i = 10;
+            int j = 0;
+            try{
+                int k = divide(i, j);
+                System.out.println(k);
+            } catch(ArithmeticException e){
+                System.out.println("0으로 나눌수 없습니다.");
+            }
+
+        }
+
+        public static int divide(int i, int j) throws ArithmeticException{
+            int k = i / j;
+            return k;
+        }
+
+    }
+
+
+
+throw - 강제로 오류를 발생시키는 것
+
+
+
+public class ExceptionExam3 {   
+        public static void main(String[] args) {
+            int i = 10;
+            int j = 0;
+            try{
+                int k = divide(i, j);
+                System.out.println(k);
+            }catch(IllegalArgumentException e){
+                System.out.println(e.toString());
+            }           
+        }
+
+        public static int divide(int i, int j) throws IllegalArgumentException{
+            if(j == 0){
+                throw new IllegalArgumentException("0으로 나눌 수 없어요.");
+            }
+            int k = i / j;
+            return k;
+        }   
+    }
+
+
+
+
+사용자 정의 Exception ,      Exception 클래스를 상속받은 클래스들은 checked Exception 이고 반드시 오류를 처리해야만 해, 예외처리 하지 않으면 컴파일 오류를 발생
+                       RuntimeException 클래스를 상속받은 클래스들은 Unchecked Excepton 이고 예외처리를 하지 않아도 컴파일 시에는 오류를 발생시키지 않는다.
+
+
+
+
+public class BizException extends RuntimeException{
+
+  public BizException(String msg){
+  	super(msg);   //이렇게만해주면됨  부모클래스 생성자만 정의해주면되  
+  }
+  
+  public BizException(Exception ex){
+        super(ex);
+  }
+}
+
+
+public class BizService{
+  public void bizMethod(int i) throws BizException{
+	
+	if(i<0){throw new BizException("매개변수 i는 0이상이여야 합니다.")}
+		
+
+   }
+ }
+
+
+public class BizExam{
+
+	public static void main(String[] args){
+		BizService biz = new BizService();
+  		biz.bizMethod(5);
+		biz.bizMethod(-3); //예와    - try catch문 해줘두되고 ,  throws를 해줬기때문에 안해줘도되
+
+	}
+}
+
+
+
+
+
+
+
