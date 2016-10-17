@@ -304,6 +304,189 @@ public class BizExam{
 
 
 
+object 클래스   equals, tostring, hashcode  -> 적절하게 오버라이딩해 
 
+
+
+wrapper - 기본형 타입을 객체로 변환시킬때
+
+public class WrapperExam{
+	
+	public static void main(String[] args){
+
+		int i=5;
+		Integer i2 = new Integer(5);
+		Integer i3 = 5; //오토 박싱, 기본형을 객체형으로 자동 형변환
+		int i4 = i2.intValue();
+		int i5 = i3; //오토 언박싱  객체타입의 값을 기본형으로 자동 형변환
+
+	}
+}
+
+
+String 클래스는 자기자신이 안변하는, String Buffer는 자기자신이 변하는 클래스
+
+
+StringBuffer sb = new StringBuffer();
+sb.append("hello");
+sb.append(" ");
+sb.append("world");
+
+String str = sb.toString();
+
+
+StringBuffer sb2 = new StringBuffer();
+StringBuffer sb3 = sb2.append("hello"); //StringBuffer가 가지고 있는 메소드들은 대부분 자기 자신,this를 반환
+
+if(sb2==sb3) System.out.println("sb2==sb3");   
+
+String str2 = new StringBuffer().append("hello").append(" ").append("world").toString(); // 자기 자신을 반환하므로 메소드 체인방식으로 사용할 수 있도록됨
+
+append 메소드 외에도 길이를 구하거나, 자르거나 등의 다양한 메소드들을 가지고 있습니다.
+
+
+
+
+String str1 ="hello";
+String str2 ="world"; 
+
+String str3 = str1+str2;   // -> str3 = new StringBuffer().append(str1).append(str2).toString();   이거랑 똑같다.  
+//문자열끼리 + 연산을 하면 StringBuffer 객체가 생성됨  100번하면 100번생성
+
+String str5 ="";
+StringBuffer sb  = new StringBuffer();
+for(int i=0;i<100;i++){
+  str5=str5+"*";      //-> 이러면 StringBuffer객체가 100번생성 , sb.append("*") ->이게 훨씬빠르다    
+}
+
+
+
+Math 클래스는 생성자가 private로 되어있기때문에 new 해서 쓸수 없어 .   하지만 모든 메소드가 static이라 Math.함수명 으로 쓸수있다.
+
+date클래스는 지역화를 지원하지않는다.  지역화는 국가별로현재 날짜와, 시간 은 다룰수 있는것   ,   그래서 Calendar 클래스가 나옴
+
+
+
+
+자료구조 클래스들을 컬렉션 프레임워크
+
+
+컬렉션 인터페이스 ->  add, iterator, size 함수등 가지고있어 .  - 중복허용, 자료가 저장된 순서도 기억하지 못함   -> 그래서 iterator 인터페이스를 사용, hasNext, next
+
+ hashset       <-- set 인터페이스 는 컬렉션인터페이스를 상속받음 ->  중복을 허용하지않아.  add(Object) -> 같은자료있으면 false  없으면 true
+ arraylist     <-- list 인터페이스 도 컬렉션인터페이스를 상속받음 -> 저장된 순서를 기억해   get(int) -> 몇번째 저장된순서 값 보여줘
+ hashmap       <-- map 인터페이스 key와 value 가진다.  put메소드를 이용해 key와 value 로 저장  ,  값을 볼때는 key를 이용하여 get(Object, Object) 함수 쓴다.   모든 key는 중복을 가지면안되 , keySet()-> 모든 key를 반환하는것
+
+
+
+제너릭   클래스 옆에 <E>  이런식으로 써준다.  generic을 사용하는 대표적인 클래스는 컬렉션 프레임워크와 관련된 클래스
+
+ public class Box<E> {
+        private E obj;
+        public void setObj(E obj){
+            this.obj = obj;
+        }
+
+        public E getObj(){
+            return obj;
+        }
+    }
+
+
+ 	    Box<String> box2 = new Box<>();
+            box2.setObj("hello");
+            String str = box2.getObj();
+            System.out.println(str);
+
+            Box<Integer> box3 = new Box<>();
+            box3.setObj(1);
+            int value = (int)box3.getObj();
+            System.out.println(value);
+
+
+
+
+SET   - 중복이 없고 순서도 없는 자료구조     - Hashset, Treeset
+
+
+Set<String> set1 = new HashSet<>();
+
+
+boolean flag1 = set1.add("kim");  //true
+boolean flag2 = set1.add("kang"); //true
+boolean flag3 = set1.add("kim"); //false
+
+System.out.println(set1.size()); //2
+
+Iterator<String> iter = set1.iterator();
+
+while(iter.hasnext()){
+
+String str = iter.next();
+System.out.println(str);
+
+}
+
+
+List  -  중복이 있고, 순서도 있다., 저장공간이 필요에 따라 자유  - ArrayList
+
+List<String> list = new ArrayList<>();
+list.add("kim");
+
+
+String str = list.get(0);
+
+
+MAP  - key와 value를 상으로 저장하는 자료구조  키는 중복될수 없고, 값은 중복될수 있다.  키가 중복으로 들어올경우 나중에 들어온 값으로 바뀐다.
+
+
+MAP<String,String> map = new HashMap<>();
+
+map.put("001","kim");
+System.out.println(map.get("001")); //kim
+
+map.put("001","kang");
+System.out.println(map.get("001")); //kang   size - 1
+
+
+Set<String> keys = map.keySet(); //모든 키값을 빼내는거 return형이 set이야 
+
+Itnerator<String> iter = keys.interator();
+
+while(iter.hasNext())
+{
+String key=iter.next();
+String value = map.get(key);
+System.out.println(key + ":" + value);
+}
+
+
+
+Date 클래스 -> 지역화에 대한 부분이 고려되지 않았다.
+
+Calendar클래스 -> 추상클래스 , 인스턴스를 생성하려면   getInstance() 사용해야해 
+
+LocalDateTime, LocalDate,LocalTime   -> 최근에 만들어지는거     
+
+LocalDateTime timePoint = LocalDateTime.now();   -> timePoint.getHour(); ... 이런거 쓸쑤있어
+
+LocalDate ld1 = LocalDate.of(2012,Month.DECEMBER,12)    -> 2012-12-12
+
+LocalTime lt1 = LocalTime.of(17,17);  17:17 ;
+LocalTime lt2 = LocalTime.parse("10:15:30");  10:15:30;
+
+
+
+자바 IO -> 크게 byte 단위, 문자단위로 입출력 클래스 나뉜다. 
+byte 단위 -- InputStream, OutputStream 이라는 추상클래스를 상속받아 만들어진다.
+char 단위 -- Reader 와 Writer 라는 추상클래스를 상속받아 만들어집니다.
+
+
+파일로부터 입력받고 쓰기 위한 클래스 - FileInputStream, FileOutputStream, FileReader, FileWriter 
+배열로부터 입력받고 쓰기 위한 클래스 - ByteArrayInputStream, ByteArrayOutputStream, CharReader,CharWriter  
+
+DataInputStream,DataOutputStream -> 다양한 데이터 형을 입력받고 출력
+
+PrintWriter - 다양하게 한줄 출력하는  println 메소드 가짐,   BufferedReader - 한줄 입력받는 readLine()메소드 가짐 
 
 
